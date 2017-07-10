@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.DeliveryMapper">
+  <resultMap id="BaseResultMap" type="model.Delivery">
+    <id column="delivery_id" jdbcType="INTEGER" property="deliveryId" />
+    <result column="delivery_user_id" jdbcType="INTEGER" property="deliveryUserId" />
+    <result column="delivery_type" jdbcType="INTEGER" property="deliveryType" />
+    <result column="delivery_desc" jdbcType="VARCHAR" property="deliveryDesc" />
+    <result column="delivery_path" jdbcType="VARCHAR" property="deliveryPath" />
+    <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="delivery_state" jdbcType="INTEGER" property="deliveryState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    delivery_id, delivery_user_id, delivery_type, delivery_desc, delivery_path, delivery_time, 
+    delivery_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from delivery
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from delivery
+    where delivery_user_id = #{deliveryUserId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserIdAndType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from delivery
+    where delivery_user_id = #{deliveryUserId,jdbcType=INTEGER}
+    and delivery_type = #{deliveryType,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from delivery
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="model.Delivery">
+    insert into delivery (delivery_id, delivery_user_id, delivery_type, 
+      delivery_desc, delivery_path, delivery_time, 
+      delivery_state)
+    values (#{deliveryId,jdbcType=INTEGER}, #{deliveryUserId,jdbcType=INTEGER}, #{deliveryType,jdbcType=INTEGER}, 
+      #{deliveryDesc,jdbcType=VARCHAR}, #{deliveryPath,jdbcType=VARCHAR}, #{deliveryTime,jdbcType=TIMESTAMP}, 
+      #{deliveryState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="model.Delivery">
+    insert into delivery
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deliveryId != null">
+        delivery_id,
+      </if>
+      <if test="deliveryUserId != null">
+        delivery_user_id,
+      </if>
+      <if test="deliveryType != null">
+        delivery_type,
+      </if>
+      <if test="deliveryDesc != null">
+        delivery_desc,
+      </if>
+      <if test="deliveryPath != null">
+        delivery_path,
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time,
+      </if>
+      <if test="deliveryState != null">
+        delivery_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deliveryId != null">
+        #{deliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryUserId != null">
+        #{deliveryUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryType != null">
+        #{deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryDesc != null">
+        #{deliveryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPath != null">
+        #{deliveryPath,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryState != null">
+        #{deliveryState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.Delivery">
+    update delivery
+    <set>
+      <if test="deliveryUserId != null">
+        delivery_user_id = #{deliveryUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryType != null">
+        delivery_type = #{deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryDesc != null">
+        delivery_desc = #{deliveryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPath != null">
+        delivery_path = #{deliveryPath,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryState != null">
+        delivery_state = #{deliveryState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Delivery">
+    update delivery
+    set delivery_user_id = #{deliveryUserId,jdbcType=INTEGER},
+      delivery_type = #{deliveryType,jdbcType=INTEGER},
+      delivery_desc = #{deliveryDesc,jdbcType=VARCHAR},
+      delivery_path = #{deliveryPath,jdbcType=VARCHAR},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      delivery_state = #{deliveryState,jdbcType=INTEGER}
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </update>
+</mapper>
